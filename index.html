@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Counter App</title>
+    <link rel="stylesheet" href="styles.css">
+    <audio id="dingSound" src="ding.mp3"></audio>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container" id="mainPage">
+        <div class="header-container">
+            <h2>Flower Counter</h2>
+            <button id="viewDataButton" class="view-data-button">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 512 512" 
+                width="24" 
+                height="24">
+            <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path d="M64 256l0-96 160 0 0 96L64 256zm0 64l160 0 0 96L64 416l0-96zm224 96l0-96 160 0 0 96-160 0zM448 256l-160 0 0-96 160 0 0 96zM64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32z"/></svg>
+            </button>
+        </div>
+        
+        <div class="input-row">
+            <div class="input-group">
+                <input type="text" id="name" placeholder="Name">
+            </div>
+            <div class="input-group">
+                <input type="text" id="managementArea" placeholder="Management Area">
+            </div>
+            <div class="input-group-block-row">
+            <div class="input-group">
+                <input type="text" id="block" placeholder="Block">
+            </div>
+            <div class="input-group">
+                <input type="text" id="row" placeholder="Row">
+            </div>
+        </div>
+        </div>
+
+        <div class="button-row">
+            <button class="counter-button" id="button0" onclick="changeButtonColor(this)">0</button>
+            <button class="counter-button" id="button1" onclick="changeButtonColor(this)">1</button>
+            <button class="counter-button" id="button2" onclick="changeButtonColor(this)">2</button>
+            <button class="counter-button" id="button3" onclick="changeButtonColor(this)">3</button>
+            <button class="counter-button" id="button4" onclick="changeButtonColor(this)">4</button>
+        </div>
+
+        <button class="download-button" id="downloadButton" onclick="changeButtonColor(this)">Download Data</button>
+    </div>
+
+    <div class="container" id="viewDataPage" style="display:none;">
+        <header>
+            <h2>View Logged Data</h2>
+            <button id="backButton" class="header-back-button" onclick="changeButtonColor(this)">Go Back</button>
+        </header>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Name</th>
+                    <th>Management Area</th>
+                    <th>Block</th>
+                    <th>Row</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically inserted here -->
+            </tbody>
+            <!-- Delete Data Button -->
+        </table>
+        <button id="deleteDataButton" class="delete-button">Delete Data</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,287 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* General container styles */
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* This ensures space between the header text and button */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Input row styling */
+.input-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: left;
+}
+
+.input-group {
+    flex-basis: 50%;
+    margin-bottom: 8px;
+    width: 105%;
+    
+
+}
+
+.input-group-block-row {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 103%;
+}
+
+label {
+    display: flex;
+    margin-bottom: 5px;
+    
+}
+
+input[type="text"] {
+    width: 96%; /* Full-width input fields */
+    padding: 8px; /* Padding inside the input */
+    font-size: 14px; /* Font size for input text */
+    border: 2px solid #9daa9c; /* Border around inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    background-color: #f7f7f7;
+}
+
+input[type="text"]::placeholder {
+    color: #adadad; /* Light grey color for placeholder */
+    font-size: 14px; /* Adjust the size of placeholder text */
+}
+
+input[type="text"]:focus {
+    border-color: #40633b; /* Change border color when focused */
+    outline: none; /* Remove default outline */
+    background-color: #ffffff; 
+}
+
+
+/* Button row styling for phones (vertical) */
+.button-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
+    gap: 10px;
+    width: 100%;
+}
+
+/* Button styling */
+.counter-button {
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    background-color: #8cd47e;
+    box-shadow: 3px 3px 8px #5e8f55;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+}
+
+.counter-button:hover {
+    background-color: #5e8f55;
+    box-shadow: 3px 3px 8px #2a4127;
+}
+
+.counter-button.active {
+    background-color: #5e8f55;
+    box-shadow: 3px 3px 8px #2a4127;
+}
+
+.submit-button,
+.download-button {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    border: solid 2px #3d3d3d;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    margin-top: 40px;
+}
+
+.submit-button:hover,
+.download-button:hover {
+    background-color: #3d3d3d;
+    color: rgb(255, 255, 255);
+}
+
+.submit-button.actice,
+.download-button.active {
+    background-color: #3d3d3d;
+}
+
+.view-data-button {
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.header-back-button {
+    margin-top: 16px;
+    margin-bottom: 40px;
+    background-color: #ffffff;
+    border: solid 2px #3d3d3d;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 50px;
+    width: 180px;
+}
+
+.header-back-button:hover {
+    background-color: #3d3d3d;
+    color: #ffffff;
+}
+
+/* Delete button style */
+.delete-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Button padding */
+    border: none; /* No border */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 18px; /* Font size */
+    font-weight: 500;
+    cursor: pointer; /* Pointer cursor */
+    margin-top: 20px; /* Space above the button */
+    display: block; /* Full width button */
+    width: 180px; /* Stretch the button width */
+    height: 60px;
+}
+
+.delete-button:hover {
+    background-color: #9c2424; /* Darker red on hover */
+}
+
+
+/* Make sure header text looks fine */
+h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Media query for smaller devices */
+@media (max-width: 721px) {
+    h2 {
+        font-size: 18px; /* Adjust font size on smaller screens */
+    }
+    
+    .view-data-button {
+        font-size: 14px; /* Smaller button text on smaller screens */
+    }
+
+    
+}
+
+
+
+/* Responsive layout for tablets */
+@media (min-width: 720px) {
+    .button-row {
+        grid-template-columns: repeat(5, 1fr); /* Display buttons in a row on larger screens */
+    }
+
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .submit-button,
+    .download-button {
+        padding: 20px;
+        font-size: 20px;
+        width: 40%;
+        margin-top: 32px;
+        height: 68px;
+    }
+
+
+}
+
+
+/* Adjust button sizes for phones vs. tablets */
+@media (max-width: 768px) {
+    .counter-button {
+        padding: 15px; /* Smaller buttons for phones */
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    .submit-button,
+    .download-button {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 767px) {
+    .counter-button {
+        width: 95%; /* Increase button size on larger screens */
+        height: 140px;
+        font-size: 28px; /* Adjust text size */
+        margin-top: 20px;
+    }
+
+    .input-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 50%;
+        margin-bottom: 20px;
+    }
+
+    .input-group-block-row {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 103%;
+    }
+
+    .submit-button,
+    .download-button {
+        padding: 20px;
+        font-size: 20px;
+        width: 40%;
+        margin-top: 50px;
+        height: 68px;
+    }
+}
+
+/* Increase button size for large tablets or desktop view */
+@media (min-width: 1024px) {
+    .counter-button {
+        width: 95%;
+        height: 160px;
+        font-size: 32px;
+    }
+}
