@@ -137,13 +137,13 @@ function confirmAndDeleteData() {
         // Clear the localStorage data
         localStorage.removeItem('offlineData');
         alert("All data has been deleted.");
+        offlineData = [];
 
         // Clear the displayed data in the table
         const tableBody = document.getElementById('dataTableBody');
         tableBody.innerHTML = ""; // Clear the table
 
         // Optionally refresh the page or update the data display after deletion
-        location.reload();
     }
 }
 
