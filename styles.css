@@ -126,17 +126,6 @@ input[type="text"]:focus {
     margin-top: 40px;
 }
 
-.submit-button:hover,
-.download-button:hover {
-    background-color: #3d3d3d;
-    color: rgb(255, 255, 255);
-}
-
-.submit-button.actice,
-.download-button.active {
-    background-color: #3d3d3d;
-}
-
 .view-data-button {
     background-color: #ffffff;
     border: none;
@@ -148,6 +137,7 @@ input[type="text"]:focus {
     margin-bottom: 40px;
     background-color: #ffffff;
     border: solid 2px #3d3d3d;
+    color: #3d3d3d;
     font-size: 16px;
     font-weight: 500;
     padding: 10px;
@@ -155,14 +145,12 @@ input[type="text"]:focus {
     width: 180px;
 }
 
-.header-back-button:hover {
-    background-color: #3d3d3d;
-    color: #ffffff;
-}
+
 
 /* Delete button style */
 .delete-button {
     background-color: #f44336; /* Red background */
+    transition: all .2s ease-in-out;
     color: white; /* White text */
     padding: 10px 20px; /* Button padding */
     border: none; /* No border */
@@ -176,9 +164,6 @@ input[type="text"]:focus {
     height: 60px;
 }
 
-.delete-button:hover {
-    background-color: #9c2424; /* Darker red on hover */
-}
 
 
 /* Make sure header text looks fine */
