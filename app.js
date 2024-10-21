@@ -31,15 +31,23 @@ function logCount(value) {
     const row = document.getElementById('row').value;
 
     if (name && managementArea && block && row) {
-        const timestamp = new Date().toISOString();  // Include timestamp with milliseconds
-
+        // Get the local date and time in the desired format
+        const now = new Date();
+        const localTimestamp = now.getFullYear() + "-" +
+                               String(now.getMonth() + 1).padStart(2, '0') + "-" +
+                               String(now.getDate()).padStart(2, '0') + "T" +
+                               String(now.getHours()).padStart(2, '0') + ":" +
+                               String(now.getMinutes()).padStart(2, '0') + ":" +
+                               String(now.getSeconds()).padStart(2, '0') + "." +
+                               String(now.getMilliseconds()).padStart(3, '0');
+        
         const entry = {
             name,
             managementArea,
             block,
             row,
             value,
-            timestamp
+            timestamp: localTimestamp // Use the local timestamp
         }
 
         offlineData.push(entry);
@@ -53,6 +61,7 @@ function logCount(value) {
         alert("Please fill out all fields.");
     }
 }
+
 
 // Download Data as CSV
 document.getElementById('downloadButton').addEventListener('click', downloadData);
