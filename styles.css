@@ -107,6 +107,11 @@ input[type="text"]:focus {
     box-shadow: 3px 3px 8px #2a4127;
 }
 
+.counter-button:hover {
+    background-color: #5e8f55;
+    box-shadow: 3px 3px 8px #2a4127;
+}
+
 .submit-button,
 .download-button {
     padding: 15px;
