@@ -114,15 +114,6 @@ function populateTable() {
     }
 }
 
-function changeButtonColor(button) {
-    // Add the 'active' class to change the button color
-    button.classList.add('active');
-
-    // Optional: Reset the color after a short delay (for visual feedback)
-    setTimeout(() => {
-        button.classList.remove('active');
-    }, 200); // Adjust delay if needed
-}
 
 
 // Add the event listener for the Delete Data button
