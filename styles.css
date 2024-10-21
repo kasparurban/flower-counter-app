@@ -88,7 +88,7 @@ input[type="text"]:focus {
 /* Button styling */
 .counter-button {
     padding: 10px;
-    font-size: 18px;
+    font-size: 24px;
     border: none;
     background-color: #8cd47e;
     box-shadow: 3px 3px 8px #5e8f55;
@@ -99,14 +99,11 @@ input[type="text"]:focus {
     width: 100%;
     height: 140px;
     box-sizing: border-box;
+    transition: .1s all;
 }
 
-.counter-button:hover {
-    background-color: #5e8f55;
-    box-shadow: 3px 3px 8px #2a4127;
-}
 
-.counter-button.active {
+.counter-button:active {
     background-color: #5e8f55;
     box-shadow: 3px 3px 8px #2a4127;
 }
@@ -124,6 +121,13 @@ input[type="text"]:focus {
     width: 100%;
     height: 60px;
     margin-top: 40px;
+    transition: .2s all;
+}
+
+.submit-button,
+.download-button:active {
+    background-color: #3d3d3d;
+    color: #ffffff;
 }
 
 .view-data-button {
@@ -143,6 +147,12 @@ input[type="text"]:focus {
     padding: 10px;
     border-radius: 50px;
     width: 180px;
+    transition: .2s all;
+}
+
+.header-back-button:active {
+    background-color: #3d3d3d;
+    color: #ffffff;
 }
 
 
@@ -150,7 +160,6 @@ input[type="text"]:focus {
 /* Delete button style */
 .delete-button {
     background-color: #f44336; /* Red background */
-    transition: all .2s ease-in-out;
     color: white; /* White text */
     padding: 10px 20px; /* Button padding */
     border: none; /* No border */
@@ -162,8 +171,12 @@ input[type="text"]:focus {
     display: block; /* Full width button */
     width: 180px; /* Stretch the button width */
     height: 60px;
+    transition: .2s all;
 }
 
+.delete-button:active {
+    background-color: #a12f27;
+}
 
 
 /* Make sure header text looks fine */
