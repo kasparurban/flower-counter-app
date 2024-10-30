@@ -38,9 +38,6 @@ button {
     flex-basis: 50%;
     margin-bottom: 8px;
     width: 105%;
-    
-    
-
 }
 
 .input-group-block-row {
@@ -53,12 +50,12 @@ button {
 label {
     display: flex;
     margin-bottom: 5px;
-    
 }
 
 input[type="text"] {
     width: 96%; /* Full-width input fields */
-    padding: 8px; /* Padding inside the input */
+    height: 32px; /* Padding inside the input */
+    padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #9daa9c; /* Border around inputs */
     border-radius: 5px; /* Rounded corners */
@@ -68,7 +65,8 @@ input[type="text"] {
 
 select {
     width: 96%; /* Full-width input fields */
-    padding: 8px; /* Padding inside the input */
+    height: 32px; /* Padding inside the input */
+    padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #9daa9c; /* Border around inputs */
     border-radius: 5px; /* Rounded corners */
@@ -81,7 +79,7 @@ option {
 }
 
 select:invalid {
-    color: #999999;
+    color: #adadad;
   }
 
 input[type="text"]::placeholder {
