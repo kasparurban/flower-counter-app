@@ -30,6 +30,7 @@ function logCount(value) {
     const plantingYear = document.getElementById('plantingYear').value;
     const block = document.getElementById('block').value;
     const row = document.getElementById('row').value;
+    const direction = document.getElementById('direction').value;
 
     if (name && managementArea && variety && block && row) {
         const now = new Date();
@@ -48,6 +49,7 @@ function logCount(value) {
             plantingYear,
             block,
             row,
+            direction,
             value,
             timestamp: localTimestamp
         };
@@ -73,9 +75,9 @@ function downloadData() {
     }
 
     const csvContent = "data:text/csv;charset=utf-8,"
-        + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Value"]
+        + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Direction,Value"]
         + "\n"
-        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.value}`).join("\n");
+        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.direction},${entry.value}`).join("\n");
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
@@ -108,7 +110,7 @@ function populateTable() {
     if (offlineData.length === 0) {
         const row = tbody.insertRow();
         const cell = row.insertCell(0);
-        cell.colSpan = 8;
+        cell.colSpan = 9;
         cell.textContent = "No data available.";
     } else {
         offlineData.forEach((entry, index) => {
@@ -136,7 +138,10 @@ function populateTable() {
             const rowCell = row.insertCell(6);
             rowCell.innerHTML = `<input value="${entry.row}" onchange="updateEntry(${index}, 'row', this.value)" />`;
 
-            const valueCell = row.insertCell(7);
+            const directionCell = row.insertCell(7);
+            directionCell.innerHTML = `<input value="${entry.direction}" onchange="updateEntry(${index}, 'direction', this.value)" />`;
+
+            const valueCell = row.insertCell(8);
             valueCell.innerHTML = `<input value="${entry.value}" onchange="updateEntry(${index}, 'value', this.value)" />`;
         });
     }

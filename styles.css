@@ -40,11 +40,11 @@ button {
     width: 105%;
 }
 
-.input-group-block-row {
+.input-group-block-row-direction {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 103%;
+    width: 102%;
 }
 
 label {
@@ -65,7 +65,7 @@ input[type="text"] {
 
 select {
     width: 96%; /* Full-width input fields */
-    height: 32px; /* Padding inside the input */
+    height: 100%; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #9daa9c; /* Border around inputs */
@@ -279,11 +279,11 @@ h2 {
         margin-bottom: 20px;
     }
 
-    .input-group-block-row {
+    .input-group-block-row-direction {
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-        width: 103%;
+        width: 102%;
     }
 
     .submit-button,

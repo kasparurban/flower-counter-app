@@ -86,12 +86,21 @@
             <div class="input-group">
                 <input type="text" id="plantingYear" placeholder="Planting Year">
             </div>
-            <div class="input-group-block-row">
+            <div class="input-group-block-row-direction">
             <div class="input-group">
                 <input type="text" id="block" placeholder="Block">
             </div>
             <div class="input-group">
                 <input type="text" id="row" placeholder="Row">
+            </div>
+            <div class="input-group">
+                <select required id="direction" placeholder="Direction">
+                    <option value="" selected disabled>Direction</option>
+                    <option>North</option>
+                    <option>South</option>
+                    <option>East</option>
+                    <option>West</option>
+                </select>
             </div>
         </div>
         </div>
@@ -122,6 +131,7 @@
                     <th>Planting Year</th>
                     <th>Block</th>
                     <th>Row</th>
+                    <th>Direction</th>
                     <th>Value</th>
                 </tr>
             </thead>
