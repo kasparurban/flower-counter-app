@@ -2,16 +2,15 @@
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(error => {
-          console.error('Service Worker registration failed:', error);
-        });
+        navigator.serviceWorker.register('service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
     });
 }
-  
 
 // Store offline data in localStorage
 let offlineData = JSON.parse(localStorage.getItem('offlineData')) || [];
@@ -27,41 +26,42 @@ document.getElementById('button4').addEventListener('click', () => logCount(4));
 function logCount(value) {
     const name = document.getElementById('name').value;
     const managementArea = document.getElementById('managementArea').value;
+    const variety = document.getElementById('variety').value;
+    const plantingYear = document.getElementById('plantingYear').value;
     const block = document.getElementById('block').value;
     const row = document.getElementById('row').value;
 
-    if (name && managementArea && block && row) {
-        // Get the local date and time in the desired format
+    if (name && managementArea && variety && block && row) {
         const now = new Date();
         const localTimestamp = now.getFullYear() + "-" +
-                               String(now.getMonth() + 1).padStart(2, '0') + "-" +
-                               String(now.getDate()).padStart(2, '0') + "T" +
-                               String(now.getHours()).padStart(2, '0') + ":" +
-                               String(now.getMinutes()).padStart(2, '0') + ":" +
-                               String(now.getSeconds()).padStart(2, '0') + "." +
-                               String(now.getMilliseconds()).padStart(3, '0');
-        
+            String(now.getMonth() + 1).padStart(2, '0') + "-" +
+            String(now.getDate()).padStart(2, '0') + "T" +
+            String(now.getHours()).padStart(2, '0') + ":" +
+            String(now.getMinutes()).padStart(2, '0') + ":" +
+            String(now.getSeconds()).padStart(2, '0') + "." +
+            String(now.getMilliseconds()).padStart(3, '0');
+
         const entry = {
             name,
             managementArea,
+            variety,
+            plantingYear,
             block,
             row,
             value,
-            timestamp: localTimestamp // Use the local timestamp
-        }
+            timestamp: localTimestamp
+        };
 
         offlineData.push(entry);
         localStorage.setItem('offlineData', JSON.stringify(offlineData));
 
-        // Provide haptic and sound feedback
-        navigator.vibrate(100);  // Vibration for 100ms
-        const audio = new Audio('ding.mp3');  // Add your ding sound file in the same folder
+        navigator.vibrate(100);
+        const audio = new Audio('ding.mp3');
         audio.play();
     } else {
         alert("Please fill out all fields.");
     }
 }
-
 
 // Download Data as CSV
 document.getElementById('downloadButton').addEventListener('click', downloadData);
@@ -73,15 +73,15 @@ function downloadData() {
     }
 
     const csvContent = "data:text/csv;charset=utf-8,"
-        + ["Timestamp,Name,Management Area,Block,Row,Value"]
+        + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Value"]
         + "\n"
-        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.block},${entry.row},${entry.value}`).join("\n");
+        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.value}`).join("\n");
 
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
     link.setAttribute('download', 'counter_data.csv');
-    document.body.appendChild(link); // Required for Firefox
+    document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
@@ -91,7 +91,7 @@ document.getElementById('viewDataButton').addEventListener('click', showViewData
 document.getElementById('backButton').addEventListener('click', showMainPage);
 
 function showViewDataPage() {
-    populateTable();  // Populate the data table with the logged data
+    populateTable();
     document.getElementById('mainPage').style.display = 'none';
     document.getElementById('viewDataPage').style.display = 'block';
 }
@@ -103,47 +103,64 @@ function showMainPage() {
 
 function populateTable() {
     const tbody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
-    tbody.innerHTML = '';  // Clear any existing rows
+    tbody.innerHTML = '';
 
     if (offlineData.length === 0) {
         const row = tbody.insertRow();
         const cell = row.insertCell(0);
-        cell.colSpan = 6;
+        cell.colSpan = 8;
         cell.textContent = "No data available.";
     } else {
-        offlineData.forEach((entry) => {
+        offlineData.forEach((entry, index) => {
             const row = tbody.insertRow();
-            row.insertCell(0).textContent = entry.timestamp;
-            row.insertCell(1).textContent = entry.name;
-            row.insertCell(2).textContent = entry.managementArea;
-            row.insertCell(3).textContent = entry.block;
-            row.insertCell(4).textContent = entry.row;
-            row.insertCell(5).textContent = entry.value;
+
+            // Create editable cells with input elements
+            const timestampCell = row.insertCell(0);
+            timestampCell.innerHTML = `<input disabled value="${entry.timestamp}" onchange="updateEntry(${index}, 'timestamp', this.value)" />`;
+
+            const nameCell = row.insertCell(1);
+            nameCell.innerHTML = `<input value="${entry.name}" onchange="updateEntry(${index}, 'name', this.value)" />`;
+
+            const managementAreaCell = row.insertCell(2);
+            managementAreaCell.innerHTML = `<input value="${entry.managementArea}" onchange="updateEntry(${index}, 'managementArea', this.value)" />`;
+
+            const varietyCell = row.insertCell(3);
+            varietyCell.innerHTML = `<input value="${entry.variety}" onchange="updateEntry(${index}, 'variety', this.value)" />`;
+
+            const plantingYearCell = row.insertCell(4);
+            plantingYearCell.innerHTML = `<input value="${entry.plantingYear}" onchange="updateEntry(${index}, 'plantingYear', this.value)" />`;
+
+            const blockCell = row.insertCell(5);
+            blockCell.innerHTML = `<input value="${entry.block}" onchange="updateEntry(${index}, 'block', this.value)" />`;
+
+            const rowCell = row.insertCell(6);
+            rowCell.innerHTML = `<input value="${entry.row}" onchange="updateEntry(${index}, 'row', this.value)" />`;
+
+            const valueCell = row.insertCell(7);
+            valueCell.innerHTML = `<input value="${entry.value}" onchange="updateEntry(${index}, 'value', this.value)" />`;
         });
     }
 }
 
-
+// Function to update an entry in offlineData and save it to localStorage
+function updateEntry(index, field, newValue) {
+    offlineData[index][field] = newValue;
+    localStorage.setItem('offlineData', JSON.stringify(offlineData));
+}
 
 // Add the event listener for the Delete Data button
 document.getElementById('deleteDataButton').addEventListener('click', confirmAndDeleteData);
 
-// Function to confirm and delete data
 function confirmAndDeleteData() {
-    // Show a confirmation alert
     const confirmation = confirm("Are you sure you want to delete all data? This action cannot be undone.");
     
     if (confirmation) {
-        // Clear the localStorage data
         localStorage.removeItem('offlineData');
         alert("All data has been deleted.");
         offlineData = [];
-
-        // Clear the displayed data in the table
+        
         const tableBody = document.getElementById('dataTableBody');
-        tableBody.innerHTML = ""; // Clear the table
-
-        // Optionally refresh the page or update the data display after deletion
+        tableBody.innerHTML = "";
     }
 }
 
