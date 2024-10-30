@@ -82,6 +82,10 @@ select::after {
     color: #000;
 }
 
+select::selection {
+    color: #000;
+}
+
 select:invalid {
     color: #adadad;
   }
