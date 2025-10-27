@@ -137,7 +137,7 @@ label {
 
 input[type="text"] {
     width: 96%; /* Full-width input fields */
-    height: 32px; /* Padding inside the input */
+    height: 28px; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #d4e191; /* Border around inputs */
@@ -148,7 +148,7 @@ input[type="text"] {
 
 select {
     width: 96%; /* Full-width input fields */
-    height: 32px; /* Padding inside the input */
+    height: 28px; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #d4e191; /* Border around inputs */
@@ -175,7 +175,7 @@ select:invalid {
 
 input[type="text"]::placeholder {
     color: #adadad; /* Light grey color for placeholder */
-    font-size: 14px; /* Adjust the size of placeholder text */
+    font-size: 12px; /* Adjust the size of placeholder text */
 }
 
 
