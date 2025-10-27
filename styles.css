@@ -1,9 +1,27 @@
-body {
+html, body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    height: 100%;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #3d3d3d;
+    font-size: 32px;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: #3d3d3d;
+    font-size: 28px;
+    font-weight: 200;
+    margin-top: 8px;
+    margin-bottom: 100px;
 }
 
 h2 {
     font-family: 'Montserrat', sans-serif;
+    color: #3d3d3d;
 }
 
 button {
@@ -14,15 +32,80 @@ button {
 .container {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 16px;
 }
 
 .header-container {
     display: flex;
     justify-content: space-between; /* This ensures space between the header text and button */
     align-items: center;
-    width: 100%;
     margin-bottom: 20px;
+}
+
+#groveButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 60px;
+  }
+  
+
+  .grove-btn {
+    background-color: #8fb353;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .grove-btn:hover,
+  .grove-btn:active {
+    background-color: #5e8f55;
+  }
+
+  .change_grove_btn {
+    border: none;
+    background: none;
+  }
+
+.icon-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.icon-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.icon-button button {
+    background-color: #d4e191;
+    box-shadow: 2px 2px 4px hsla(82, 39%, 51%, 0.6);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 9px;
+    
+}
+
+.icon-button p {
+    font-size: 10px;
+    color: #3d3d3d;
+    font-weight: 600;
+    margin: 6px 0 0;
 }
 
 /* Input row styling */
@@ -44,7 +127,7 @@ button {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 102%;
+    width: 103%;
 }
 
 label {
@@ -57,10 +140,10 @@ input[type="text"] {
     height: 32px; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
-    border: 2px solid #9daa9c; /* Border around inputs */
+    border: 2px solid #d4e191; /* Border around inputs */
     border-radius: 5px; /* Rounded corners */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
-    background-color: #f7f7f7;
+    background-color: #ffffff;
 }
 
 select {
@@ -68,10 +151,10 @@ select {
     height: 32px; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
-    border: 2px solid #9daa9c; /* Border around inputs */
+    border: 2px solid #d4e191; /* Border around inputs */
     border-radius: 5px; /* Rounded corners */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
-    background-color: #f7f7f7;
+    background-color: #ffffff;
 }
 
 option {
@@ -108,17 +191,18 @@ input[type="text"]:focus {
 .button-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
-    gap: 10px;
+    gap: 16px;
     width: 100%;
+    
 }
 
 /* Button styling */
 .counter-button {
     padding: 10px;
-    font-size: 24px;
+    font-size: 32px;
     border: none;
-    background-color: #8cd47e;
-    box-shadow: 3px 3px 8px #5e8f55;
+    background-color: #8fb353;
+    box-shadow: 4px 4px 8px hsla(60, 49%, 20%, 0.7);
     color: white;
     border-radius: 8px;
     cursor: pointer;
@@ -139,26 +223,20 @@ input[type="text"]:focus {
     box-shadow: 3px 3px 8px #2a4127;
 }
 
-.submit-button,
+
 .download-button {
-    padding: 15px;
-    font-size: 18px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+    background-color: #8fb353;
+    border: solid 2px #8fb353;
+    color: white;
+    font-size: 16px;
     font-weight: 500;
-    border: solid 2px #3d3d3d;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
+    padding: 10px;
     border-radius: 50px;
-    cursor: pointer;
-    width: 100%;
-    height: 60px;
-    margin-top: 40px;
+    width: 160px;
 }
 
-.submit-button,
-.download-button:active {
-    background-color: #3d3d3d;
-    color: #ffffff;
-}
 
 .view-data-button {
     background-color: #ffffff;
@@ -168,7 +246,7 @@ input[type="text"]:focus {
 
 .header-back-button {
     margin-top: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 16px;
     background-color: #ffffff;
     border: solid 2px #3d3d3d;
     color: #3d3d3d;
@@ -176,7 +254,7 @@ input[type="text"]:focus {
     font-weight: 500;
     padding: 10px;
     border-radius: 50px;
-    width: 180px;
+    width: 160px;
 }
 
 .header-back-button:active {
@@ -188,25 +266,27 @@ input[type="text"]:focus {
 
 /* Delete button style */
 .delete-button {
-    background-color: #f44336; /* Red background */
-    color: white; /* White text */
-    padding: 10px 20px; /* Button padding */
-    border: none; /* No border */
-    border-radius: 50px; /* Rounded corners */
-    font-size: 18px; /* Font size */
+    margin-top: 16px;
+    margin-bottom: 40px;
+    background-color: #f44336;
+    border: solid 2px #f44336;
+    color: white;
+    font-size: 16px;
     font-weight: 500;
-    cursor: pointer; /* Pointer cursor */
-    margin-top: 20px; /* Space above the button */
-    display: block; /* Full width button */
-    width: 180px; /* Stretch the button width */
-    height: 60px;
-    transition: .2s all;
+    padding: 10px;
+    border-radius: 50px;
+    width: 160px;
 }
 
 .delete-button:active {
     background-color: #a12f27;
 }
 
+.action-buttons {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
 
 /* Make sure header text looks fine */
 h2 {
@@ -218,6 +298,7 @@ h2 {
 @media (max-width: 721px) {
     h2 {
         font-size: 18px; /* Adjust font size on smaller screens */
+       
     }
     
     .view-data-button {
@@ -262,7 +343,7 @@ h2 {
 @media (max-width: 768px) {
     .counter-button {
         padding: 15px; /* Smaller buttons for phones */
-        font-size: 24px;
+        font-size: 32px;
         margin-top: 10px;
     }
 
@@ -277,7 +358,7 @@ h2 {
     .counter-button {
         width: 95%; /* Increase button size on larger screens */
         height: 140px;
-        font-size: 28px; /* Adjust text size */
+        font-size: 32px; /* Adjust text size */
         margin-top: 20px;
     }
 

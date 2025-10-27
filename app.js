@@ -66,6 +66,29 @@ function logCount(value) {
 }
 
 // Download Data as CSV
+document.getElementById('IconDownloadButton').addEventListener('click', downloadData);
+
+function downloadData() {
+    if (offlineData.length === 0) {
+        alert("No data to download.");
+        return;
+    }
+
+    const csvContent = "data:text/csv;charset=utf-8,"
+        + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Direction,Value"]
+        + "\n"
+        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.direction},${entry.value}`).join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'counter_data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Download Data as CSV
 document.getElementById('downloadButton').addEventListener('click', downloadData);
 
 function downloadData() {
@@ -110,48 +133,69 @@ function populateTable() {
     if (offlineData.length === 0) {
         const row = tbody.insertRow();
         const cell = row.insertCell(0);
-        cell.colSpan = 9;
+        cell.colSpan = 10; // one extra column for delete button
         cell.textContent = "No data available.";
     } else {
-        offlineData.forEach((entry, index) => {
+        // iterate a reversed copy for display, but compute realIndex for operations
+        offlineData.slice().reverse().forEach((entry, displayIndex) => {
             const row = tbody.insertRow();
 
-            // Create editable cells with input elements
-            const timestampCell = row.insertCell(0);
-            timestampCell.innerHTML = `<input disabled value="${entry.timestamp}" onchange="updateEntry(${index}, 'timestamp', this.value)" />`;
+            // compute index in the original offlineData array
+            const realIndex = offlineData.length - 1 - displayIndex;
 
-            const nameCell = row.insertCell(1);
-            nameCell.innerHTML = `<input value="${entry.name}" onchange="updateEntry(${index}, 'name', this.value)" />`;
+            // 🗑️ First column — delete button (uses realIndex)
+            const deleteCell = row.insertCell(0);
+            deleteCell.innerHTML = `<button onclick="deleteEntry(${realIndex})" style="background:none;color:#e63946;border:none;font-size:18px;cursor:pointer;">✖</button>`;
 
-            const managementAreaCell = row.insertCell(2);
-            managementAreaCell.innerHTML = `<input value="${entry.managementArea}" onchange="updateEntry(${index}, 'managementArea', this.value)" />`;
+            // Editable data cells (shifted one index right)
+            const timestampCell = row.insertCell(1);
+            timestampCell.innerHTML = `<input disabled value="${entry.timestamp}" onchange="updateEntry(${realIndex}, 'timestamp', this.value)" />`;
 
-            const varietyCell = row.insertCell(3);
-            varietyCell.innerHTML = `<input value="${entry.variety}" onchange="updateEntry(${index}, 'variety', this.value)" />`;
+            const valueCell = row.insertCell(2);
+            valueCell.innerHTML = `<input value="${entry.value}" onchange="updateEntry(${realIndex}, 'value', this.value)" />`;
 
-            const plantingYearCell = row.insertCell(4);
-            plantingYearCell.innerHTML = `<input value="${entry.plantingYear}" onchange="updateEntry(${index}, 'plantingYear', this.value)" />`;
+            const managementAreaCell = row.insertCell(3);
+            managementAreaCell.innerHTML = `<input value="${entry.managementArea}" onchange="updateEntry(${realIndex}, 'managementArea', this.value)" />`;
 
-            const blockCell = row.insertCell(5);
-            blockCell.innerHTML = `<input value="${entry.block}" onchange="updateEntry(${index}, 'block', this.value)" />`;
+            const varietyCell = row.insertCell(4);
+            varietyCell.innerHTML = `<input value="${entry.variety}" onchange="updateEntry(${realIndex}, 'variety', this.value)" />`;
 
-            const rowCell = row.insertCell(6);
-            rowCell.innerHTML = `<input value="${entry.row}" onchange="updateEntry(${index}, 'row', this.value)" />`;
+            const plantingYearCell = row.insertCell(5);
+            plantingYearCell.innerHTML = `<input value="${entry.plantingYear}" onchange="updateEntry(${realIndex}, 'plantingYear', this.value)" />`;
 
-            const directionCell = row.insertCell(7);
-            directionCell.innerHTML = `<input value="${entry.direction}" onchange="updateEntry(${index}, 'direction', this.value)" />`;
+            const blockCell = row.insertCell(6);
+            blockCell.innerHTML = `<input value="${entry.block}" onchange="updateEntry(${realIndex}, 'block', this.value)" />`;
 
-            const valueCell = row.insertCell(8);
-            valueCell.innerHTML = `<input value="${entry.value}" onchange="updateEntry(${index}, 'value', this.value)" />`;
+            const rowCell = row.insertCell(7);
+            rowCell.innerHTML = `<input value="${entry.row}" onchange="updateEntry(${realIndex}, 'row', this.value)" />`;
+
+            const directionCell = row.insertCell(8);
+            directionCell.innerHTML = `<input value="${entry.direction}" onchange="updateEntry(${realIndex}, 'direction', this.value)" />`;
+
+            const nameCell = row.insertCell(9);
+            nameCell.innerHTML = `<input value="${entry.name}" onchange="updateEntry(${realIndex}, 'name', this.value)" />`;
+
+            
         });
     }
 }
+
 
 // Function to update an entry in offlineData and save it to localStorage
 function updateEntry(index, field, newValue) {
     offlineData[index][field] = newValue;
     localStorage.setItem('offlineData', JSON.stringify(offlineData));
 }
+
+function deleteEntry(index) {
+    const confirmation = confirm("Delete this row?");
+    if (confirmation) {
+        offlineData.splice(index, 1);
+        localStorage.setItem('offlineData', JSON.stringify(offlineData));
+        populateTable();
+    }
+}
+
 
 // Add the event listener for the Delete Data button
 document.getElementById('deleteDataButton').addEventListener('click', confirmAndDeleteData);
@@ -160,12 +204,58 @@ function confirmAndDeleteData() {
     const confirmation = confirm("Are you sure you want to delete all data? This action cannot be undone.");
     
     if (confirmation) {
-        localStorage.removeItem('offlineData');
-        alert("All data has been deleted.");
-        offlineData = [];
-        
-        const tableBody = document.getElementById('dataTableBody');
-        tableBody.innerHTML = "";
+      localStorage.removeItem('offlineData');
+      offlineData = [];
+      populateTable(); // refresh table immediately
+      alert("All data has been deleted.");
     }
-}
+  }
 
+const groveButtons = document.querySelectorAll(".grove-btn");
+const mainPage = document.getElementById("mainPage");
+const groveSelectionPage = document.getElementById("groveSelectionPage");
+const managementAreaSelect = document.getElementById("managementArea");
+
+// Define management areas by grove
+const managementAreas = {
+  boort: [
+    "Allisons", "Andrews", "Arthurs", "Bains", "Barries", "Beatons", "Cables", "Dam", "Edgars", "Evans", "Fitzpatricks", "Flips", "Gearys", "Gills", "Hummels", "James", "Jonathan", "Keiths", "Kines", "Lanyons", "Lewis'","Little O'Donnells", "Logans", "Mathews", "McGraths", "Moloneys", "O'Donnells", "O'Mearas", "Parkers", "Pearces", "Pinks", "Weavers", "West", "Wychitella"
+  ],
+  boundaryBend: [
+    "Alistair", "Burgess", "Cams", "Claudia", "Dam", "Daryll", "Fi", "Geds", "Grey", "Hoody", "JV2", "JV3", "JV4", "Kangaroo", "Kate", "Ken", "Kooly", "Leandro", "Norto", "Rail", "Reg", "Rob", "Sob", "Tracy"
+  ],
+    wemen: [
+    "A Block", "A 2Nth'", "A 2Sth", "B Block", "C Block", "C 3Nth", "C 3Sth", "D Block", "E Block", "F Block", "F 3Nth", "F 3Sth", "GE Block", "GE 2Nth", "GE 2Sth", "GW Block", "H Block", "H 2Sth"
+  ],
+  orana: [
+    "A", "B", "C", "D", "E", "F", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
+  ]
+};
+
+// Handle grove selection
+groveButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const grove = button.dataset.grove;
+
+    // Clear old management area options
+    managementAreaSelect.innerHTML = `<option value="" disabled selected>Management Area</option>`;
+
+    // Populate with relevant management areas
+    managementAreas[grove].forEach(area => {
+      const option = document.createElement("option");
+      option.value = area;
+      option.textContent = area;
+      managementAreaSelect.appendChild(option);
+    });
+
+    // Show main page, hide grove selection
+    groveSelectionPage.style.display = "none";
+    mainPage.style.display = "block";
+  });
+});
+
+document.getElementById("changeGroveButton").addEventListener("click", () => {
+    mainPage.style.display = "none";
+    groveSelectionPage.style.display = "block";
+  });
+  
