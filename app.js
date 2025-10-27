@@ -1,5 +1,29 @@
 // src/index.js
 
+let currentLocation = null;
+
+if ("geolocation" in navigator) {
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+        currentLocation = { latitude, longitude, accuracy };
+        console.log("GPS:", currentLocation);
+      },
+      (error) => {
+        console.error("GPS error:", error);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 10000,
+        timeout: 20000
+      }
+    );
+  } else {
+    console.warn("Geolocation not supported on this device.");
+  }
+
+// End of GPS  
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('service-worker.js')
@@ -41,19 +65,20 @@ function logCount(value) {
             String(now.getMinutes()).padStart(2, '0') + ":" +
             String(now.getSeconds()).padStart(2, '0') + "." +
             String(now.getMilliseconds()).padStart(3, '0');
-
+        //GPS change
         const entry = {
-            name,
-            managementArea,
-            variety,
-            plantingYear,
-            block,
-            row,
-            direction,
-            value,
-            timestamp: localTimestamp
+        name,
+        managementArea,
+        variety,
+        plantingYear,
+        block,
+        row,
+        direction,
+        value,
+        timestamp: localTimestamp,
+        gps: currentLocation ? `${currentLocation.latitude.toFixed(6)}, ${currentLocation.longitude.toFixed(6)}` : "No GPS"
         };
-
+        //GPS change
         offlineData.push(entry);
         localStorage.setItem('offlineData', JSON.stringify(offlineData));
 
@@ -96,12 +121,15 @@ function downloadData() {
         alert("No data to download.");
         return;
     }
-
+    //GPS change
     const csvContent = "data:text/csv;charset=utf-8,"
-        + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Direction,Value"]
-        + "\n"
-        + offlineData.map(entry => `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.direction},${entry.value}`).join("\n");
+  + ["Timestamp,Name,Management Area,Variety,Planting Year,Block,Row,Direction,Value,GPS"]
+  + "\n"
+  + offlineData.map(entry => 
+      `${entry.timestamp},${entry.name},${entry.managementArea},${entry.variety},${entry.plantingYear},${entry.block},${entry.row},${entry.direction},${entry.value},${entry.gps}`
+    ).join("\n");
 
+    //GPS change
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
