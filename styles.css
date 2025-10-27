@@ -137,7 +137,7 @@ label {
 
 input[type="text"] {
     width: 96%; /* Full-width input fields */
-    height: 28px; /* Padding inside the input */
+    height: 30px; /* Padding inside the input */
     padding-left: 8px;
     font-size: 14px; /* Font size for input text */
     border: 2px solid #d4e191; /* Border around inputs */
@@ -175,7 +175,7 @@ select:invalid {
 
 input[type="text"]::placeholder {
     color: #adadad; /* Light grey color for placeholder */
-    font-size: 12px; /* Adjust the size of placeholder text */
+    font-size: 14px; /* Adjust the size of placeholder text */
 }
 
 
@@ -208,7 +208,7 @@ input[type="text"]:focus {
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
-    height: 120px;
+    height: 140px;
     box-sizing: border-box;
 }
 
