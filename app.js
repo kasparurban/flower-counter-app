@@ -46,6 +46,18 @@ document.getElementById('button2').addEventListener('click', () => logCount(2));
 document.getElementById('button3').addEventListener('click', () => logCount(3));
 document.getElementById('button4').addEventListener('click', () => logCount(4));
 
+//Beep sound
+
+function playBeep() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = ctx.createOscillator();
+    oscillator.type = "square";
+    oscillator.frequency.setValueAtTime(880, ctx.currentTime);
+    oscillator.connect(ctx.destination);
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + 0.1);
+  }
+
 // Function to log counts offline
 function logCount(value) {
     const name = document.getElementById('name').value;
@@ -83,8 +95,7 @@ function logCount(value) {
         localStorage.setItem('offlineData', JSON.stringify(offlineData));
 
         navigator.vibrate(100);
-        const audio = new Audio('ding.mp3');
-        audio.play();
+        playBeep();
     } else {
         alert("Please fill out all fields.");
     }
