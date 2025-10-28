@@ -264,7 +264,7 @@ const managementAreas = {
     "Alistair", "Burgess", "Cams", "Claudia", "Dam", "Daryll", "Fi", "Geds", "Grey", "Hoody", "JV2", "JV3", "JV4", "Kangaroo", "Kate", "Ken", "Kooly", "Leandro", "Norto", "Rail", "Reg", "Rob", "Sob", "Tracy"
   ],
     wemen: [
-    "A Block", "A 2Nth'", "A 2Sth", "B Block", "C Block", "C 3Nth", "C 3Sth", "D Block", "E Block", "F Block", "F 3Nth", "F 3Sth", "GE Block", "GE 2Nth", "GE 2Sth", "GW Block", "H Block", "H 2Sth"
+    "A Block", "B Block", "C Block", "D Block", "E Block", "F Block", "GE Block", "GW Block", "H Block"
   ],
   orana: [
     "A", "B", "C", "D", "E", "F", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
