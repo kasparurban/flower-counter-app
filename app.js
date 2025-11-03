@@ -1,40 +1,35 @@
 // src/index.js
 
 let currentLocation = null;
+let lastUpdateTime = 0;
 
 if ("geolocation" in navigator) {
-    navigator.geolocation.watchPosition(
-      (position) => {
+  navigator.geolocation.watchPosition(
+    (position) => {
+      const now = Date.now();
+      const timeDiff = now - lastUpdateTime;
+
+      // Only update if it's a fresh reading (new or 2+ seconds old)
+      if (timeDiff > 2000) {
         const { latitude, longitude, accuracy } = position.coords;
-        currentLocation = { latitude, longitude, accuracy };
-        console.log("GPS:", currentLocation);
-      },
-      (error) => {
-        console.error("GPS error:", error);
-      },
-      {
-        enableHighAccuracy: true,
-        maximumAge: 10000,
-        timeout: 20000
+        currentLocation = { latitude, longitude, accuracy, timestamp: now };
+        lastUpdateTime = now;
+        console.log("New GPS fix:", currentLocation);
       }
-    );
-  } else {
-    console.warn("Geolocation not supported on this device.");
-  }
-
-// End of GPS  
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(error => {
-                console.error('Service Worker registration failed:', error);
-            });
-    });
+    },
+    (error) => {
+      console.error("GPS error:", error);
+    },
+    {
+      enableHighAccuracy: true,
+      maximumAge: 0,  // Never use cached location
+      timeout: 5000   // Try again quickly if no fix
+    }
+  );
+} else {
+  console.warn("Geolocation not supported on this device.");
 }
+
 
 // Store offline data in localStorage
 let offlineData = JSON.parse(localStorage.getItem('offlineData')) || [];
