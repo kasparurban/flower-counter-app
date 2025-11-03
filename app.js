@@ -46,17 +46,7 @@ document.getElementById('button2').addEventListener('click', () => logCount(2));
 document.getElementById('button3').addEventListener('click', () => logCount(3));
 document.getElementById('button4').addEventListener('click', () => logCount(4));
 
-//Beep sound
 
-function playBeep() {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = ctx.createOscillator();
-    oscillator.type = "square";
-    oscillator.frequency.setValueAtTime(880, ctx.currentTime);
-    oscillator.connect(ctx.destination);
-    oscillator.start();
-    oscillator.stop(ctx.currentTime + 0.1);
-  }
 
 // Function to log counts offline
 function logCount(value) {
@@ -95,7 +85,6 @@ function logCount(value) {
         localStorage.setItem('offlineData', JSON.stringify(offlineData));
 
         navigator.vibrate(100);
-        playBeep();
     } else {
         alert("Please fill out all fields.");
     }
@@ -213,6 +202,10 @@ function populateTable() {
 
             const nameCell = row.insertCell(9);
             nameCell.innerHTML = `<input value="${entry.name}" onchange="updateEntry(${realIndex}, 'name', this.value)" />`;
+
+            const gpsCell = row.insertCell(10);
+            gpsCell.innerHTML = `<input value="${entry.gps}" onchange="updateEntry(${realIndex}, 'gps', this.value)" />`;
+
 
             
         });
